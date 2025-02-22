@@ -11,7 +11,9 @@ app.use(
   })
 );
 
-const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+const frontendUrl = "http://localhost:5173"
+
+const stripe = require("stripe")("k_test_51QvNJaDwAfJl7BpVQ1FSchHIoQZUpUtnKSsdgSyUNhEq7oPsorUi6hzihfZznkmuckDmkyDrGnjasFpdZf6OwsI3009tgh4NRm");
 
 const storeItems = new Map([
   [1, { priceInCents: 10000, name: "item one" }],
@@ -38,8 +40,8 @@ app.post("/api/checkout", async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: lineItems,
-      success_url: `${process.env.SERVER_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.SERVER_URL}/failure`,
+      success_url: `${frontendUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${frontendUrl}/failure`,
     });
 
     res.json({ url: session.url, id: session.id });

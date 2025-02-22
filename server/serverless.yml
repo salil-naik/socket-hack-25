@@ -1,0 +1,51 @@
+service: socket-protocol-api
+frameworkVersion: "3"
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  vpc: ${param:vpc}
+  versionFunctions: false
+  logRetentionInDays: ${param:logRetentionInDays}
+  tags:
+    service: ${self:service}
+    stage: ${self:provider.stage}
+  environment:
+    STRIPE_PRIVATE_KEY: k_test_51QvNJaDwAfJl7BpVQ1FSchHIoQZUpUtnKSsdgSyUNhEq7oPsorUi6hzihfZznkmuckDmkyDrGnjasFpdZf6OwsI3009tgh4NRm
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "execute-api:Invoke"
+          Resource: "*"
+package:
+  individually: true
+
+params:
+  # prod: ${file(./sls.params.prod.yml)}
+  dev: ${file(./sls.params.dev.yml)}
+  # surge: ${file(./sls.params.surge.yml)}
+
+custom:
+  alerts: ${file(./sls.alerts.yml)}
+  esbuild:
+    bundle: true
+    minify: false
+    nativeZip: true
+    packager: yarn
+    treeShaking: true
+    concurrency: 1
+    external:
+      - pg
+
+functions:
+  - ${file(./src/handlers/sls.yml)}
+
+plugins:
+  - serverless-offline
+  - serverless-esbuild

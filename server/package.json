@@ -1,21 +1,55 @@
 {
-  "name": "server",
+  "name": "attester",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "author": "arthcp <arth.c.patel@gmail.com>",
+  "license": "MIT",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "deploy": "yarn lint && AWS_PROFILE=lldev && npx sls deploy -s dev --verbose",
+    "deploy:prod": "yarn lint && export AWS_PROFILE=llprod && npx sls deploy -s prod --verbose",
+    "start": "export AWS_PROFILE=llprod && serverless offline start -s prod",
+    "start:dev": "export AWS_PROFILE=lldev && serverless offline start -s dev",
+    "prepare": "husky install",
+    "build": "tsc --project tsconfig.build.json",
+    "build:clean": "rm -rf tsconfig.build.tsbuildinfo && rm -rf ./dist",
+    "lint": " tsc && prettier src --write --ignore-unknown",
+    "lint:check": "prettier \"./**\" --ignore-unknown --check"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "stripe": "^17.6.0"
+    "@socket.tech/socket-protocol": "^1.0.11",
+    "@socket.tech/socket-protocol-common": "1.1.22",
+    "axios": "^1.3.6",
+    "dotenv": "^16.0.0",
+    "ethers": "^5.6.5",
+    "libpq": "^1.8.12",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.6"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@types/aws-lambda": "^8.10.137",
+    "@types/node": "^17.0.23",
+    "@types/node-cron": "^3.0.1",
+    "@types/pg": "^8.11.10",
+    "@types/prompts": "^2.4.1",
+    "@types/yargs": "^17.0.32",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "esbuild": "^0.21.1",
+    "eslint": "^8.12.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.1",
+    "serverless": "^3.25.0",
+    "serverless-esbuild": "^1.52.1",
+    "serverless-offline": "^14.4.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
   }
 }

@@ -1,0 +1,8 @@
+vpc:
+  subnetIds:
+    - subnet-0d1fa9d55b632e5eb
+    - subnet-0d413ef59c1b3b66b
+  securityGroupIds:
+    - sg-0fe4bba639a0987b0
+
+logRetentionInDays: 7
