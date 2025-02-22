@@ -13,9 +13,9 @@ function useCheckout() {
                 body: JSON.stringify(data),
             });
 
-            // if (!response.ok) {
-            //     throw new Error('Network response was not ok');
-            // }
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
 
             const result = await response.json();
             // Navigate to external link on successful checkout

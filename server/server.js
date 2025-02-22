@@ -20,23 +20,25 @@ const storeItems = new Map([
 
 app.post("/api/checkout", async (req, res) => {
   try {
+    const lineItems = req.body.map((item) => {
+      const storeItem = storeItems.get(item.id);
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: storeItem.name,
+          },
+          unit_amount: storeItem.priceInCents,
+        },
+        quantity: item.quantity,
+      };
+    });
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: req.body.map((item) => {
-        const storeItem = storeItems.get(item.id);
-        return {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: storeItem.name,
-            },
-            unit_amount: storeItem.priceInCents,
-          },
-          quantity: item.quantity,
-        };
-      }),
-      success_url: `${process.env.SERVER_URL}/success/?id=${session.id}`,
+      line_items: lineItems,
+      success_url: `${process.env.SERVER_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.SERVER_URL}/failure`,
     });
 
@@ -49,6 +51,14 @@ app.post("/api/checkout", async (req, res) => {
 app.get("/api/products", (req, res) => {
   res.json(Array.from(storeItems.values()));
 });
+
+
+app.post("/api/status", async (req, res) => {
+    const result = await stripe.checkout.sessions.retrieve(req.body.session_id);
+    const mainRes = await stripe.paymentIntents.retrieve(result.payment_intent);
+    res.json(mainRes);
+})
+  
 
 app.listen(3000, () => console.log("server running on localhost:3000"));
 
