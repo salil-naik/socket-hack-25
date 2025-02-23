@@ -8,7 +8,7 @@ const useCheckStatus = (sessionId: string) => {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/status`, {
+        const response = await fetch(`http://localhost:3000/dev/api/status`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

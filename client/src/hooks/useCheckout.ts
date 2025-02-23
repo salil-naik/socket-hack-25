@@ -5,7 +5,7 @@ function useCheckout() {
 
     const postCheckout = async (data: any) => {
         try {
-            const response = await fetch('http://localhost:3000/api/checkout', {
+            const response = await fetch('http://localhost:3000/dev/api/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

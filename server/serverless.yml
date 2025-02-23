@@ -1,5 +1,5 @@
-service: socket-protocol-api
-frameworkVersion: "3"
+service: stripe-service
+frameworkVersion: "4"
 useDotenv: true
 
 provider:
@@ -14,7 +14,7 @@ provider:
     service: ${self:service}
     stage: ${self:provider.stage}
   environment:
-    STRIPE_PRIVATE_KEY: k_test_51QvNJaDwAfJl7BpVQ1FSchHIoQZUpUtnKSsdgSyUNhEq7oPsorUi6hzihfZznkmuckDmkyDrGnjasFpdZf6OwsI3009tgh4NRm
+    STRIPE_PRIVATE_KEY: sk_test_51QvNJaDwAfJl7BpVQ1FSchHIoQZUpUtnKSsdgSyUNhEq7oPsorUi6hzihfZznkmuckDmkyDrGnjasFpdZf6OwsI3009tgh4NRm
 
   iam:
     role:
@@ -31,8 +31,9 @@ params:
   dev: ${file(./sls.params.dev.yml)}
   # surge: ${file(./sls.params.surge.yml)}
 
+
 custom:
-  alerts: ${file(./sls.alerts.yml)}
+  # alerts: ${file(./sls.alerts.yml)}
   esbuild:
     bundle: true
     minify: false
@@ -48,4 +49,3 @@ functions:
 
 plugins:
   - serverless-offline
-  - serverless-esbuild

@@ -1,0 +1,13 @@
+checkoutHandler:
+  handler: src/handlers/checkoutHandler.checkoutHandler
+  events:
+    - http:
+        path: /api/checkout
+        method: post
+
+statusHander:
+  handler: src/handlers/statusHandler.statusHandler
+  events: 
+    - http:
+        path: /api/status
+        method: post
