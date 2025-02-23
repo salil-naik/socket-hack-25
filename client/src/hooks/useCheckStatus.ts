@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 const useCheckStatus = (sessionId: string) => {
   const [status, setStatus] = useState();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -33,7 +32,7 @@ const useCheckStatus = (sessionId: string) => {
     }
   }, [sessionId]);
 
-  return { status, loading, error };
+  return { status, loading };
 };
 
 export default useCheckStatus;
