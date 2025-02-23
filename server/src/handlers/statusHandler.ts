@@ -2,8 +2,8 @@ import { stripe } from "./common";
 
 export const statusHandler = async (event) => {
   try {
-    const body = JSON.parse(event.body);
-    const result = await stripe.checkout.sessions.retrieve(body.session_id);
+    const sessionId = event.queryStringParameters.session_id;
+    const result = await stripe.checkout.sessions.retrieve(sessionId);
 
     return {
         body: JSON.stringify(result)

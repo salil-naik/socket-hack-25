@@ -10,4 +10,4 @@ statusHander:
   events: 
     - http:
         path: /api/status
-        method: post
+        method: get
