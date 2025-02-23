@@ -7,7 +7,7 @@ const useCheckStatus = (sessionId: string) => {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/dev/api/status?session_id=${sessionId}`, {
+        const response = await fetch(`https://6ovc37fu52.execute-api.us-east-1.amazonaws.com/dev/api/status?session_id=${sessionId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
