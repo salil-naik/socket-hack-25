@@ -8,12 +8,11 @@ const useCheckStatus = (sessionId: string) => {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/dev/api/status`, {
-          method: 'POST',
+        const response = await fetch(`http://localhost:3000/dev/api/status?session_id=${sessionId}`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ session_id: sessionId }), // Pass the session ID
         });
         
         if (!response.ok) {
@@ -23,7 +22,7 @@ const useCheckStatus = (sessionId: string) => {
         const data = await response.json();
         setStatus(data);
       } catch (err) {
-        setError(err);
+        console.error('Error fetching status:', err);
       } finally {
         setLoading(false);
       }

@@ -8,13 +8,13 @@ export const Success = () => {
   const sessionId = queryParams.get('session_id');
 
   // Use the custom hook with sessionId
-  const { status, loading, error } = useCheckStatus(sessionId || "");
-  
+  const { status, loading } = useCheckStatus(sessionId || "");
+
+
   return (
     <>
         <h1>Success</h1>  
         {loading && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
         {status && <p>Status: {JSON.stringify(status)}</p>}
     </>
   );
