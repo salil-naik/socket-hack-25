@@ -1,10 +1,10 @@
-import {config} from "dotenv";
+import { config } from "dotenv";
 config();
 import { storeItems, stripe, frontendUrl } from "./common";
 
 export const checkoutHandler = async (event) => {
   try {
-    const items = JSON.parse(event.body); 
+    const items = JSON.parse(event.body);
     const lineItems = items.map((item) => {
       const storeItem = storeItems.get(item.id);
       return {
@@ -26,13 +26,20 @@ export const checkoutHandler = async (event) => {
       success_url: `${frontendUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${frontendUrl}/failure`,
     });
+
     return {
-        body: JSON.stringify({ url: session.url, id: session.id }),
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "https://www.example.com",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      body: JSON.stringify({ url: session.url, id: session.id }),
     }
   } catch (e) {
     return {
-        statusCode: 500,
-        body: JSON.stringify({ error: e.message }),
+      statusCode: 500,
+      body: JSON.stringify({ error: e.message }),
     }
   }
 };
