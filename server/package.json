@@ -8,8 +8,8 @@
   "scripts": {
     "deploy": "yarn lint && AWS_PROFILE=lldev && npx sls deploy -s dev --verbose",
     "deploy:prod": "yarn lint && export AWS_PROFILE=llprod && npx sls deploy -s prod --verbose",
-    "start": "export AWS_PROFILE=llprod && serverless offline start -s prod",
-    "start:dev": "export AWS_PROFILE=lldev && serverless offline start -s dev",
+    "start": "export AWS_PROFILE=llprod && serverless offline start",
+    "start:dev": "export AWS_PROFILE=lldev && npx serverless offline start",
     "prepare": "",
     "build": "tsc --project tsconfig.build.json",
     "build:clean": "rm -rf tsconfig.build.tsbuildinfo && rm -rf ./dist",
@@ -27,6 +27,7 @@
     "@types/node": "^17.0.23",
     "esbuild": "^0.21.1",
     "serverless-esbuild": "^1.52.1",
-    "serverless-offline": "^14.4.0"
+    "serverless-offline": "^14.4.0",
+    "serverless": "^4.0.0"
   }
 }
