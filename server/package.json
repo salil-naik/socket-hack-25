@@ -6,7 +6,7 @@
   "author": "arthcp <arth.c.patel@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "deploy": "yarn lint && AWS_PROFILE=lldev && npx sls deploy -s dev --verbose",
+    "deploy": "AWS_PROFILE=socket-dev && npx sls deploy -s dev --verbose",
     "deploy:prod": "yarn lint && export AWS_PROFILE=llprod && npx sls deploy -s prod --verbose",
     "start": "export AWS_PROFILE=llprod && serverless offline start",
     "start:dev": "export AWS_PROFILE=lldev && npx serverless offline start",
