@@ -5,7 +5,7 @@ checkoutHandler:
         path: /api/checkout
         method: post
 
-statusHander:
+statusHandler:
   handler: src/handlers/statusHandler.statusHandler
   events: 
     - http:
